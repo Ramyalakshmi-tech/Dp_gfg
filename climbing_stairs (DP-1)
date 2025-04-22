@@ -2,17 +2,27 @@ class Solution {
     public int climbStairsmemo(int n) {
         int[] dp=new int[n+1];
         Arrays.fill(dp,-1);
-      return climbStairsRecur(n,dp);
+      return climbStairsRecur(n);
 
     }
 
-    public int climbStairsRecur(int n,int[] dp){
+    public int climbStairsRecur(int n){
+        if(n<0) return 0;
+        if(n==0) return 1;
+       
+        int ans=0;
+        ans+=climbStairsRecur(n-1);
+        ans+=climbStairsRecur(n-2);
+        return ans;
+
+    }
+    public int climbStairsMemo(int n,int[] dp){
         if(n<0) return 0;
         if(n==0) return 1;
         if(dp[n]!=-1) return dp[n];
         int ans=0;
-        ans+=climbStairsRecur(n-1,dp);
-        ans+=climbStairsRecur(n-2,dp);
+        ans+=climbStairsMemo(n-1,dp);
+        ans+=climbStairsMemo(n-2,dp);
         return dp[n]=ans;
 
     }
