@@ -1,0 +1,53 @@
+https://www.geeksforgeeks.org/problems/geeks-training/1
+
+class Solution {
+    public int maximumPoints(int[][] points) {
+        int[][] dp=new int[points.length+1][points[0].length+1];
+        for(int i=0;i<dp.length;i++) Arrays.fill(dp[i],-1);
+       // return maxPointsMemo(points, 0, 3,dp); // 3 means no column chosen yet
+       return maxPointsInd(points,0,3,dp);
+    }
+
+    private int maxPointsMemo(int[][] points, int row, int lastCol,int[][] dp) {
+        if (row >= points.length) return 0;
+        if(dp[row][lastCol]!=-1) return dp[row][lastCol];
+
+        int max = 0;
+        for (int col = 0; col < 3; col++) {
+            if (col != lastCol) {
+                int res = points[row][col] + maxPointsMemo(points, row + 1, col,dp);
+                max = Math.max(max, res);
+            }
+        }
+        return dp[row][lastCol]=max;
+    }
+    
+    
+    private int maxPointsIdx(int[][] points int row, int lastCol,int[][] dp) {
+        if (row >= points.length) return 0;
+        if(dp[row][lastCol]!=-1) return dp[row][lastCol];
+
+        int max = 0;
+        for (int col = 0; col < 3; col++) {
+            if (col != lastCol) {
+                int res = points[row][col] + maxPointsIdx(points, row + 1, col,dp);
+                max = Math.max(max, res);
+            }
+        }
+        return dp[row][lastCol]=max;
+    }
+    
+   /* public int maximumPointsTab(int[][] points){
+        int[][] dp=new int[points.length][points.length];
+         for(int row=0;row<points.length;row++){
+             for(int col=0;col<points.length;col++){
+                 int res=points[row][col]+dp[
+                    dp[i]=Math.max(dp[i],res);
+             }
+         }
+         
+         return dp[n-1];
+    }*/
+    
+    
+}
